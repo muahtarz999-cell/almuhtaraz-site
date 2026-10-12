@@ -1,34 +1,9 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# ملفات النظام والمحرر
 .DS_Store
-*.pem
+Thumbs.db
+.vs/
+.vscode/
+*.log
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-.env
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ملفات مؤقتة
+*.tmp
