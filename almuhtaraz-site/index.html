@@ -901,20 +901,41 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
       <!-- Interactive Controls beside the phone -->
       <div>
         <div style="background:rgba(19,26,40,.5);border:1px solid rgba(201,168,104,.2);border-radius:16px;padding:26px">
-          <span class="app-badge">تجربة التفاعل الحي</span>
-          <h3 style="color:var(--gold-hi);font-size:22px;margin:8px 0 12px">شاشة هاتف ذكية تنبض بالحياة</h3>
+          <span class="app-badge">منظومة الحلول الرقمية</span>
+          <h3 style="color:var(--gold-hi);font-size:22px;margin:8px 0 12px">شاشة ذكية تنبض بالحياة</h3>
           <p style="color:var(--soft);font-size:14.5px;line-height:1.8">
-            شاهد حركة الآليات وتتبع الـ GPS، واختبر إصدار الفواتير الفورية. اضغط على أزرار الهاتف بجانبك لتسمع وتشاهد استجابة النظام اللحظية!
+            نطوّر حلولًا رقمية وأنظمة مخصصة مصممة وفق احتياجات الأعمال، بدءاً من تطبيقات الجوال والويب، وصولاً إلى أنظمة إدارة العمليات والبيانات والمنصات الرقمية المتكاملة.
           </p>
 
-          <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px">
-            <button type="button" onclick="window.triggerPhoneSound('dispatch');" class="btn" style="width:100%;justify-content:flex-start;background:rgba(255,255,255,.03)">
-              🚚 إرسال إشعار توجيه شاحنة عبر GPS
-            </button>
-            <button type="button" onclick="window.triggerPhoneSound('invoice');" class="btn" style="width:100%;justify-content:flex-start;background:rgba(255,255,255,.03)">
-              📄 محاكاة استلام دفعة وتوليد QR كود
-            </button>
-            <button type="button" onclick="window.triggerPhoneSound('voice');" class="btn" style="width:100%;justify-content:flex-start;background:rgba(255,255,255,.03)">
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
+            <!-- Profile Feature 1: Mobile & Web Applications -->
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,104,.18);border-radius:12px;padding:12px 14px;transition:border-color .25s,transform .25s" onmouseover="this.style.borderColor='var(--gold-hi)';this.style.transform='translateX(-3px)'" onmouseout="this.style.borderColor='rgba(201,168,104,.18)';this.style.transform='none'">
+              <div style="width:64px;height:64px;flex-shrink:0;border-radius:8px;overflow:hidden;border:1px solid rgba(201,168,104,.3);background:#070b14">
+                <img src="img/app_services.webp" alt="تطبيقات الجوال والويب" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block">
+              </div>
+              <div style="flex:1">
+                <h4 style="color:#fff;font-size:14px;margin:0 0 4px;font-weight:700">تطبيقات الجوال والويب المخصصة</h4>
+                <p style="color:var(--muted);font-size:12px;line-height:1.5;margin:0">
+                  تصميم وتطوير تطبيقات متكاملة لإدارة العمليات وخدمة العملاء تجمع بين سهولة الاستخدام والأمان والكفاءة.
+                </p>
+              </div>
+            </div>
+
+            <!-- Profile Feature 2: Dashboards & Digital Transformation -->
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.03);border:1px solid rgba(56,189,248,.18);border-radius:12px;padding:12px 14px;transition:border-color .25s,transform .25s" onmouseover="this.style.borderColor='#38bdf8';this.style.transform='translateX(-3px)'" onmouseout="this.style.borderColor='rgba(56,189,248,.18)';this.style.transform='none'">
+              <div style="width:64px;height:64px;flex-shrink:0;border-radius:8px;overflow:hidden;border:1px solid rgba(56,189,248,.3);background:#070b14">
+                <img src="img/app_erp.webp" alt="لوحات التحكم والتحول الرقمي" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block">
+              </div>
+              <div style="flex:1">
+                <h4 style="color:#fff;font-size:14px;margin:0 0 4px;font-weight:700">لوحات التحكم والتحول الرقمي</h4>
+                <p style="color:var(--muted);font-size:12px;line-height:1.5;margin:0">
+                  متابعة وتحليل دقيق للأداء وربط الأنظمة وأتمتة الإجراءات لتحويل المتطلبات إلى نتائج عملية ملموسة.
+                </p>
+              </div>
+            </div>
+
+            <!-- Single Voice Interactive Control (Preserved & Enhanced) -->
+            <button type="button" onclick="window.triggerPhoneSound('voice');" class="btn btn-glow" style="width:100%;justify-content:center;padding:13px 18px;font-size:14.5px;margin-top:6px;gap:10px">
               🎙️ استمع إلى شرح صوتي تفاعلي للمنظومة
             </button>
           </div>
@@ -1936,7 +1957,7 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
   // 8. Speaking Images Engine (Web Speech Synthesis + Audio Synthesizer)
   const sectorSpeeches = {
     build: 'أهلاً بكم في قطاع المقاولات والإنشاءات بشركة المحترز. ننفذ المشاريع الكبرى بأعلى معايير الجودة، وبإشراف هندسي يلتزم بالكود السعودي للمباني.',
-    digital: 'الحلول الرقمية في شركة المحترز تجمع بين الأنظمة السحابية والذكاء الاصطناعي، لنمنح منشأتكم تحولاً رقمياً شاملاً وأتمتة ذكية للأعمال.',
+    digital: 'نطور في شركة المحترز حلولاً رقمية وأنظمة مخصصة مصممة وفق احتياجات الأعمال، بدءاً من تطبيقات الجوال والويب، وصولاً إلى أنظمة إدارة العمليات والبيانات والمنصات الرقمية المتكاملة.',
     custom: 'نصمم ونطور أنظمة مخصصة تدمج نقاط البيع وإدارة المشاريع ولوحات التحكم، لتلبي بدقة أعلى تطلعات المستثمرين ورواد الأعمال.',
     containers: 'خدمات الحاويات والحلول المتكاملة في أعمال الطرق والبنية التحتية، مدعومة بأسطول متكامل ومرتبط بنظام التتبع المباشر لسرعة الاستجابة.',
     events: 'إدارة وتنظيم الفعاليات والمعارض والضيافة الفاخرة بأفكار إبداعية وتجهيزات راقية تعكس عراقة وهوية المملكة.',
