@@ -871,18 +871,23 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
               </div>
             </div>
 
-            <!-- Quick Action Interactive Buttons inside phone -->
+            <!-- Profile Real App Cards inside phone -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-              <button type="button" onclick="window.triggerPhoneSound('pos');" style="background:rgba(201,168,104,.15);border:1px solid var(--line-hi);color:#fff;border-radius:10px;padding:10px;font-size:11px;cursor:pointer;text-align:right">
-                <div style="font-size:16px;margin-bottom:2px">💳</div>
-                <b>إصدار فاتورة</b>
-                <div style="color:var(--muted);font-size:9px">ضريبة ZATCA</div>
-              </button>
-              <button type="button" onclick="window.triggerPhoneSound('support');" style="background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:#fff;border-radius:10px;padding:10px;font-size:11px;cursor:pointer;text-align:right">
-                <div style="font-size:16px;margin-bottom:2px">🤖</div>
-                <b>المساعد الذكي</b>
-                <div style="color:#38bdf8;font-size:9px">فحص الصلاحيات</div>
-              </button>
+              <div role="button" tabindex="0" onclick="window.triggerPhoneSound('erp');" style="background:rgba(201,168,104,.08);border:1px solid rgba(201,168,104,.25);border-radius:10px;padding:8px;font-size:11px;cursor:pointer;text-align:right;transition:transform .2s,border-color .2s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='var(--gold-hi)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(201,168,104,.25)';this.style.transform='none'">
+                <div style="width:100%;height:58px;border-radius:6px;overflow:hidden;margin-bottom:6px;border:1px solid rgba(255,255,255,.08);background:#070b14">
+                  <img src="img/screen_erp.webp" alt="تطبيق إدارة الأعمال" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block">
+                </div>
+                <b style="color:#fff;font-size:10.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">إدارة الأعمال</b>
+                <div style="color:var(--muted);font-size:8.5px;margin-top:2px;line-height:1.3">العمليات والبيانات</div>
+              </div>
+
+              <div role="button" tabindex="0" onclick="window.triggerPhoneSound('sales');" style="background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px;font-size:11px;cursor:pointer;text-align:right;transition:transform .2s,border-color .2s;display:flex;flex-direction:column" onmouseover="this.style.borderColor='#38bdf8';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(56,189,248,.25)';this.style.transform='none'">
+                <div style="width:100%;height:58px;border-radius:6px;overflow:hidden;margin-bottom:6px;border:1px solid rgba(255,255,255,.08);background:#070b14">
+                  <img src="img/screen_sales.webp" alt="تطبيق المبيعات والخدمات" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block">
+                </div>
+                <b style="color:#fff;font-size:10.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">المبيعات والخدمات</b>
+                <div style="color:#38bdf8;font-size:8.5px;margin-top:2px;line-height:1.3">مؤشرات حية وتقارير</div>
+              </div>
             </div>
 
             <!-- Audio notification indicator in phone -->
@@ -1991,7 +1996,15 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
       } catch(e) {}
     }
 
-    if (actionType === 'pos') {
+    if (actionType === 'erp') {
+      beep(880, 0.12, 'sine');
+      setTimeout(() => beep(1180, 0.18, 'sine'), 100);
+      if (log) log.innerHTML = '<span style="color:var(--gold-hi)">📊 تطبيق إدارة الأعمال: نظام شامل لإدارة العمليات والبيانات</span>';
+    } else if (actionType === 'sales') {
+      beep(660, 0.12, 'sine');
+      setTimeout(() => beep(990, 0.18, 'sine'), 100);
+      if (log) log.innerHTML = '<span style="color:#38bdf8">💼 تطبيق المبيعات والخدمات: متابعة حية للمؤشرات والتقارير المالية</span>';
+    } else if (actionType === 'pos') {
       beep(880, 0.15, 'triangle');
       setTimeout(() => beep(1320, 0.25, 'triangle'), 150);
       if (log) log.innerHTML = '<span style="color:var(--gold-hi)">💳 تم إصدار فاتورة ضريبية #1042 بنجاح!</span>';
