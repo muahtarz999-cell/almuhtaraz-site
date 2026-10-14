@@ -24,13 +24,17 @@
 <meta name="twitter:description" content="نبني الحلول ونطور الأعمال في المقاولات والبنية التحتية والحلول الرقمية.">
 <meta name="twitter:image" content="https://almuhtaraz-site.vercel.app/img/logo.png">
 <script>
-window.addEventListener('pageshow', function (event) {
-  var navigation = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-  if (event.persisted || location.hash || !navigation || navigation.type === 'back_forward') return;
-  requestAnimationFrame(function () {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  });
-});
+(function () {
+  var entries = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation');
+  var navigation = entries && entries[0];
+  if (!navigation || navigation.type === 'back_forward' || location.hash) return;
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted || location.hash) return;
+    requestAnimationFrame(function () {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  }, { once: true });
+})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
