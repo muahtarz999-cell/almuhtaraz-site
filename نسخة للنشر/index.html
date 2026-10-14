@@ -23,32 +23,6 @@
 <meta name="twitter:title" content="شركة المحترز للمقاولات العامة">
 <meta name="twitter:description" content="نبني الحلول ونطور الأعمال في المقاولات والبنية التحتية والحلول الرقمية.">
 <meta name="twitter:image" content="https://almuhtaraz-site.vercel.app/img/logo.png">
-<script>
-(function () {
-  var entries = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation');
-  var navigation = entries && entries[0];
-  if (!navigation || navigation.type === 'back_forward' || location.hash) return;
-  var initialScrollLocked = true;
-  function resetUnexpectedInitialScroll() {
-    if (!initialScrollLocked || location.hash || !window.scrollY) return;
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-  function releaseInitialScrollGuard() {
-    if (!initialScrollLocked) return;
-    initialScrollLocked = false;
-    history.scrollRestoration = 'auto';
-    window.removeEventListener('scroll', resetUnexpectedInitialScroll);
-    ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (type) {
-      window.removeEventListener(type, releaseInitialScrollGuard);
-    });
-  }
-  window.addEventListener('scroll', resetUnexpectedInitialScroll, { passive: true });
-  window.addEventListener('pageshow', resetUnexpectedInitialScroll, { once: true });
-  ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (type) {
-    window.addEventListener(type, releaseInitialScrollGuard, { once: true, passive: true });
-  });
-})();
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap">
@@ -1150,7 +1124,7 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
     [[18,38],[36,46],[54,30],[72,40],[30,20],[86,18],[100,22],[40,54],[60,42],[22,48]].map(function(c,i){return '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="1.2" style="--d:'+(i*.27).toFixed(2)+'s"/>'}).join('')+'</svg></div>'}
   function build(){
     host.innerHTML=[p1,p2,p3,p4].map(function(f,i){return '<div class="ph" style="--fd:'+(-i*1.4)+'s"><div class="scr">'+f()+'</div></div>'}).join('');
-    runCounters();
+    if(reduce)host.querySelectorAll('[data-count]').forEach(function(el){el.textContent=fmt(+el.dataset.count,el.dataset.fmt)});
   }
   var timer=0;
   function fmt(n,f){return f?Math.round(n).toLocaleString('en-US'):String(Math.round(n))}
@@ -1164,13 +1138,13 @@ footer .motto{font:500 18px/1.6 var(--font-main);color:var(--gold-hi);margin-bot
     });
   }
   function size(){var w=stage.clientWidth||360;var cols=w>=760?4:2;var pw=cols===4?(w-24)/4.36:(w-24)/2.2;host.style.setProperty('--pw',Math.max(110,Math.min(250,pw))+'px')}
-  size();if(window.ResizeObserver)new ResizeObserver(size).observe(stage);else addEventListener('resize',size);
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting){host.dataset.on='1';stage.classList.remove('off');build();clearInterval(timer);if(!reduce)timer=setInterval(function(){if(host.dataset.on==='1')runCounters()},7000)}
-      else{host.dataset.on='0';stage.classList.add('off');clearInterval(timer)}
-    })},{threshold:.15}).observe(stage);
-  }else{host.dataset.on='1';build();if(!reduce)timer=setInterval(runCounters,7000)}
+  size();host.dataset.on='0';stage.classList.add('off');build();
+  var lastW=stage.clientWidth;
+  if(window.ResizeObserver)new ResizeObserver(function(){var w=stage.clientWidth;if(Math.abs(w-lastW)>1){lastW=w;size()}}).observe(stage);else addEventListener('resize',size);
+  function enter(){host.dataset.on='1';stage.classList.remove('off');if(host.dataset.ran)build();host.dataset.ran='1';runCounters();clearInterval(timer);if(!reduce)timer=setInterval(function(){if(host.dataset.on==='1')runCounters()},7000)}
+  function leave(){host.dataset.on='0';stage.classList.add('off');clearInterval(timer)}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?enter():leave()})},{threshold:.15}).observe(stage)}
+  else{enter()}
   if(window.matchMedia&&matchMedia('(hover:hover)').matches&&!reduce){
     stage.addEventListener('pointermove',function(e){var r=stage.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;host.style.setProperty('--ry',(x*10).toFixed(2)+'deg');host.style.setProperty('--rx',(-y*7).toFixed(2)+'deg')});
     stage.addEventListener('pointerleave',function(){host.style.setProperty('--ry','0deg');host.style.setProperty('--rx','0deg')});
