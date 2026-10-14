@@ -28,33 +28,25 @@
   var entries = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation');
   var navigation = entries && entries[0];
   if (!navigation || navigation.type === 'back_forward' || location.hash) return;
-  history.scrollRestoration = 'manual';
-  var initialScrollHandled = false;
-  function removeInitialScrollGuard() {
-    window.removeEventListener('scroll', resetInitialScroll);
-    window.removeEventListener('pointerdown', removeInitialScrollGuard);
-    window.removeEventListener('touchstart', removeInitialScrollGuard);
-    window.removeEventListener('wheel', removeInitialScrollGuard);
-    window.removeEventListener('keydown', removeInitialScrollGuard);
-    window.removeEventListener('hashchange', removeInitialScrollGuard);
-  }
-  function resetInitialScroll() {
-    if (initialScrollHandled || !window.scrollY) return;
-    initialScrollHandled = true;
-    removeInitialScrollGuard();
+  var initialScrollLocked = true;
+  function resetUnexpectedInitialScroll() {
+    if (!initialScrollLocked || location.hash || !window.scrollY) return;
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
-  window.addEventListener('scroll', resetInitialScroll, { passive: true });
-  window.addEventListener('pointerdown', removeInitialScrollGuard, { once: true });
-  window.addEventListener('touchstart', removeInitialScrollGuard, { once: true, passive: true });
-  window.addEventListener('wheel', removeInitialScrollGuard, { once: true, passive: true });
-  window.addEventListener('keydown', removeInitialScrollGuard, { once: true });
-  window.addEventListener('hashchange', removeInitialScrollGuard, { once: true });
-  window.addEventListener('pageshow', function (event) {
-    if (event.persisted) return;
-    resetInitialScroll();
+  function releaseInitialScrollGuard() {
+    if (!initialScrollLocked) return;
+    initialScrollLocked = false;
     history.scrollRestoration = 'auto';
-  }, { once: true });
+    window.removeEventListener('scroll', resetUnexpectedInitialScroll);
+    ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (type) {
+      window.removeEventListener(type, releaseInitialScrollGuard);
+    });
+  }
+  window.addEventListener('scroll', resetUnexpectedInitialScroll, { passive: true });
+  window.addEventListener('pageshow', resetUnexpectedInitialScroll, { once: true });
+  ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (type) {
+    window.addEventListener(type, releaseInitialScrollGuard, { once: true, passive: true });
+  });
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
